@@ -1,5 +1,12 @@
   
-  //Create multiple objects inside array
+  // Keep track of score vars
+  
+  var score = 0;
+  var winningScore = 2;
+  
+
+  //Create object array
+  //global variable
 
   var cards = [
   {
@@ -23,7 +30,7 @@
   {
     rank: 'King',
     suit: 'diamonds',
-    cardImage: 'images/king-of-diamonds.png'	
+    cardImage: 'images/king-of-diamonds.png',	
   }
 ];
 
@@ -31,25 +38,31 @@
 
 var cardsInPlay = [];
 
-//  Check for two matching pairs (i.e. queen, queen || king, king)
-
+//  Check for two matching pairs + score
 var checkForMatch = function () {
 	if (cardsInPlay[0] === cardsInPlay[1]) {
-		alert("You found a match! Woohoo!");
-	} else {
-		alert("Sorry, try again.");
-	}
+		alert("You found a matching pair! You receive 1 point!");
+    score += 1;
+    alert("You have a score total of" + score);
+      if (score === winningScore){
+        alert("We have a winner! You scored maximum points!");
+      }
+   } else {
+    alert("No match this time! You receive 0 points!");
+  }
 };
 
-// flipCard function 
+// flipCard function
 
 var flipCard = function () {
-  	cardId = this.getAttribute('data-id');
-  	console.log(cardId);
-  	cardsInPlay.push(cards[cardId].rank);
-  	this.setAttribute('src', cards[cardId].cardImage);
-  	if (cardsInPlay.length === 2) {
-  	checkForMatch();
+    cardId = this.getAttribute('data-id');
+    console.log(cardId);
+    cardsInPlay.push(cards[cardId].rank);
+    this.setAttribute('src', cards[cardId].cardImage);
+    if (cardsInPlay.length === 2) {
+    checkForMatch();
+  } else if (cardsInPlay.length === 4){
+    checkForMatch();
   }
 };
 
@@ -65,8 +78,15 @@ var createBoard = function (){
 }
 };
 
-
 createBoard();
+
+
+
+// Refresh Page Function
+
+function refreshPage(){
+    window.location.reload();
+} 
 
 
 
